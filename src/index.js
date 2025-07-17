@@ -7,6 +7,11 @@ const triggerGithubPublish = require("./utils/github-dispatch");
 const isApiContentType = (uid) =>
   typeof uid === "string" && uid.startsWith("api::");
 
+const isConcernedContentType = (uid) =>
+  uid === "api::article.article" ||
+  uid === "api::video.video" ||
+  uid === "api::pointer.pointer";
+
 module.exports = {
   async bootstrap({ strapi }) {
     strapi.db.lifecycles.subscribe({
@@ -20,8 +25,7 @@ module.exports = {
           return;
         }
 
-        const isConcerned =
-          uid === "api::article.article" || uid === "api::video.video";
+        const isConcerned = isConcernedContentType(uid);
 
         const fieldsToSelect = isConcerned
           ? ["publishedAt", "publicationDate"]
@@ -73,8 +77,7 @@ module.exports = {
         }
 
         if (result.publishedAt) {
-          const isConcerned =
-            uid === "api::article.article" || uid === "api::video.video";
+          const isConcerned = isConcernedContentType(uid);
           if (isConcerned && result.publicationDate == null) {
             await strapi.entityService.update(uid, result.id, {
               data: {

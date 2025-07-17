@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pointers",
+  "info": {
+    "singularName": "pointer",
+    "pluralName": "pointers",
+    "displayName": "Pointer"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tag.tag",
+      "inversedBy": "pointers"
+    },
+    "publicationDate": {
+      "type": "datetime"
+    }
+  }
+}

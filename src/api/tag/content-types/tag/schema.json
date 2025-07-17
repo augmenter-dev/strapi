@@ -31,6 +31,12 @@
       "relation": "manyToMany",
       "target": "api::video.video",
       "mappedBy": "tags"
+    },
+    "pointers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::pointer.pointer",
+      "mappedBy": "tags"
     }
   }
 }
