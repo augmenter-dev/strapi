@@ -49,6 +49,18 @@
     },
     "publicationDate": {
       "type": "datetime"
+    },
+    "articleType": {
+      "type": "enumeration",
+      "enum": [
+        "news",
+        "insight"
+      ],
+      "default": "news"
+    },
+    "highlight": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
