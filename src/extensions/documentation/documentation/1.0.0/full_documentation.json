@@ -14,7 +14,7 @@
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
     "termsOfService": "YOUR_TERMS_OF_SERVICE_URL",
-    "x-generation-date": "2025-07-17T11:19:54.719Z"
+    "x-generation-date": "2025-08-29T16:00:27.684Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -4655,10 +4655,23 @@
                 ],
                 "example": "string or id"
               },
+              "articleType": {
+                "type": "string",
+                "enum": [
+                  "news",
+                  "insight"
+                ]
+              },
+              "highlight": {
+                "type": "boolean"
+              },
               "content": {
                 "type": "string"
               },
               "excerpt": {
+                "type": "string"
+              },
+              "tldr": {
                 "type": "string"
               },
               "tags": {
@@ -5356,10 +5369,23 @@
               }
             }
           },
+          "articleType": {
+            "type": "string",
+            "enum": [
+              "news",
+              "insight"
+            ]
+          },
+          "highlight": {
+            "type": "boolean"
+          },
           "content": {
             "type": "string"
           },
           "excerpt": {
+            "type": "string"
+          },
+          "tldr": {
             "type": "string"
           },
           "tags": {
@@ -5522,10 +5548,23 @@
                           }
                         }
                       },
+                      "articleType": {
+                        "type": "string",
+                        "enum": [
+                          "news",
+                          "insight"
+                        ]
+                      },
+                      "highlight": {
+                        "type": "boolean"
+                      },
                       "content": {
                         "type": "string"
                       },
                       "excerpt": {
+                        "type": "string"
+                      },
+                      "tldr": {
                         "type": "string"
                       },
                       "tags": {
@@ -7914,10 +7953,23 @@
                           }
                         }
                       },
+                      "articleType": {
+                        "type": "string",
+                        "enum": [
+                          "news",
+                          "insight"
+                        ]
+                      },
+                      "highlight": {
+                        "type": "boolean"
+                      },
                       "content": {
                         "type": "string"
                       },
                       "excerpt": {
+                        "type": "string"
+                      },
+                      "tldr": {
                         "type": "string"
                       },
                       "tags": {
@@ -9199,10 +9251,23 @@
                     }
                   }
                 },
+                "articleType": {
+                  "type": "string",
+                  "enum": [
+                    "news",
+                    "insight"
+                  ]
+                },
+                "highlight": {
+                  "type": "boolean"
+                },
                 "content": {
                   "type": "string"
                 },
                 "excerpt": {
+                  "type": "string"
+                },
+                "tldr": {
                   "type": "string"
                 },
                 "tags": {
@@ -10690,10 +10755,23 @@
                           }
                         }
                       },
+                      "articleType": {
+                        "type": "string",
+                        "enum": [
+                          "news",
+                          "insight"
+                        ]
+                      },
+                      "highlight": {
+                        "type": "boolean"
+                      },
                       "content": {
                         "type": "string"
                       },
                       "excerpt": {
+                        "type": "string"
+                      },
+                      "tldr": {
                         "type": "string"
                       },
                       "tags": {

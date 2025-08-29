@@ -31,11 +31,26 @@
         "videos"
       ]
     },
+    "articleType": {
+      "type": "enumeration",
+      "default": "news",
+      "enum": [
+        "news",
+        "insight"
+      ]
+    },
+    "highlight": {
+      "type": "boolean",
+      "default": false
+    },
     "content": {
       "type": "richtext",
       "required": true
     },
     "excerpt": {
+      "type": "richtext"
+    },
+    "tldr": {
       "type": "richtext"
     },
     "tags": {
