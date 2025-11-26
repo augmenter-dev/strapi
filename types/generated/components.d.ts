@@ -94,6 +94,7 @@ export interface SharedSlider extends Struct.ComponentSchema {
   };
   attributes: {
     files: Schema.Attribute.Media<'images', true>;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -120,6 +121,7 @@ export interface SharedTicketing extends Struct.ComponentSchema {
     CTA: Schema.Attribute.Component<'shared.cta', true>;
     text_after: Schema.Attribute.RichText;
     text_before: Schema.Attribute.RichText;
+    ticketing_url: Schema.Attribute.String;
     tickets: Schema.Attribute.Component<'shared.ticket-type', true>;
     title: Schema.Attribute.String;
   };

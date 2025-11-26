@@ -23,6 +23,9 @@
       "type": "component",
       "component": "shared.cta",
       "repeatable": true
+    },
+    "ticketing_url": {
+      "type": "string"
     }
   },
   "config": {}
