@@ -64,6 +64,7 @@ export interface SharedRichTextSection extends Struct.ComponentSchema {
     displayName: 'Rich text section';
   };
   attributes: {
+    CTA: Schema.Attribute.Component<'shared.cta', true>;
     text: Schema.Attribute.RichText;
     title: Schema.Attribute.String;
   };

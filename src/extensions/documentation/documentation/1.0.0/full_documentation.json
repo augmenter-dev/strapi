@@ -14,7 +14,7 @@
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
     "termsOfService": "YOUR_TERMS_OF_SERVICE_URL",
-    "x-generation-date": "2025-11-26T10:38:58.947Z"
+    "x-generation-date": "2025-11-26T10:42:25.321Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -6898,6 +6898,20 @@
           }
         }
       },
+      "SharedCtaComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      },
       "SharedRichTextSectionComponent": {
         "type": "object",
         "properties": {
@@ -6915,20 +6929,12 @@
           },
           "text": {
             "type": "string"
-          }
-        }
-      },
-      "SharedCtaComponent": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
           },
-          "title": {
-            "type": "string"
-          },
-          "url": {
-            "type": "string"
+          "CTA": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SharedCtaComponent"
+            }
           }
         }
       },
