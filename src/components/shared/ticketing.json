@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_shared_ticketings",
+  "info": {
+    "displayName": "ticketing"
+  },
+  "options": {},
+  "attributes": {
+    "tickets": {
+      "type": "component",
+      "component": "shared.ticket-type",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

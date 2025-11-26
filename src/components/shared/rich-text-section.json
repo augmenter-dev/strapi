@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_shared_rich_text_sections",
+  "info": {
+    "displayName": "Rich text section"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "text": {
+      "type": "richtext"
+    }
+  },
+  "config": {}
+}

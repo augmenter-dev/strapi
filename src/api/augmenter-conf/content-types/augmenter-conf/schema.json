@@ -1,0 +1,30 @@
+{
+  "kind": "singleType",
+  "collectionName": "augmenter_confs",
+  "info": {
+    "singularName": "augmenter-conf",
+    "pluralName": "augmenter-confs",
+    "displayName": "augmenter conf"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "seo": {
+      "type": "component",
+      "component": "shared.seo",
+      "repeatable": false
+    },
+    "sections": {
+      "type": "component",
+      "component": "shared.rich-text-section",
+      "repeatable": true
+    },
+    "tickets": {
+      "type": "component",
+      "component": "shared.ticketing",
+      "repeatable": false
+    }
+  }
+}

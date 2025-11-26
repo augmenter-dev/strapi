@@ -35,6 +35,17 @@ export interface SharedRichText extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedRichTextSection extends Struct.ComponentSchema {
+  collectionName: 'components_shared_rich_text_sections';
+  info: {
+    displayName: 'Rich text section';
+  };
+  attributes: {
+    text: Schema.Attribute.RichText;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SharedSeo extends Struct.ComponentSchema {
   collectionName: 'components_shared_seos';
   info: {
@@ -62,14 +73,41 @@ export interface SharedSlider extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedTicketType extends Struct.ComponentSchema {
+  collectionName: 'components_shared_ticket_types';
+  info: {
+    displayName: 'Ticket type';
+  };
+  attributes: {
+    name: Schema.Attribute.String;
+    price: Schema.Attribute.Decimal;
+    ticket_type_status: Schema.Attribute.Enumeration<
+      ['selling', 'available_soon', 'sold_out']
+    >;
+  };
+}
+
+export interface SharedTicketing extends Struct.ComponentSchema {
+  collectionName: 'components_shared_ticketings';
+  info: {
+    displayName: 'ticketing';
+  };
+  attributes: {
+    tickets: Schema.Attribute.Component<'shared.ticket-type', true>;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'shared.media': SharedMedia;
       'shared.quote': SharedQuote;
       'shared.rich-text': SharedRichText;
+      'shared.rich-text-section': SharedRichTextSection;
       'shared.seo': SharedSeo;
       'shared.slider': SharedSlider;
+      'shared.ticket-type': SharedTicketType;
+      'shared.ticketing': SharedTicketing;
     }
   }
 }

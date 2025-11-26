@@ -440,6 +440,36 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAugmenterConfAugmenterConf extends Struct.SingleTypeSchema {
+  collectionName: 'augmenter_confs';
+  info: {
+    displayName: 'augmenter conf';
+    pluralName: 'augmenter-confs';
+    singularName: 'augmenter-conf';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::augmenter-conf.augmenter-conf'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    sections: Schema.Attribute.Component<'shared.rich-text-section', true>;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    tickets: Schema.Attribute.Component<'shared.ticketing', false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   collectionName: 'globals';
   info: {
@@ -1080,6 +1110,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::about.about': ApiAboutAbout;
       'api::article.article': ApiArticleArticle;
+      'api::augmenter-conf.augmenter-conf': ApiAugmenterConfAugmenterConf;
       'api::global.global': ApiGlobalGlobal;
       'api::pointer.pointer': ApiPointerPointer;
       'api::tag.tag': ApiTagTag;

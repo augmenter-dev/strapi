@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_shared_ticket_types",
+  "info": {
+    "displayName": "Ticket type"
+  },
+  "options": {},
+  "attributes": {
+    "price": {
+      "type": "decimal"
+    },
+    "ticket_type_status": {
+      "type": "enumeration",
+      "enum": [
+        "selling",
+        "available_soon",
+        "sold_out"
+      ]
+    },
+    "name": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}
