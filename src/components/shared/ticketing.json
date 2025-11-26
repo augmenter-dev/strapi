@@ -5,16 +5,24 @@
   },
   "options": {},
   "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "text_before": {
+      "type": "richtext"
+    },
     "tickets": {
       "type": "component",
       "component": "shared.ticket-type",
       "repeatable": true
     },
-    "title": {
-      "type": "string"
-    },
-    "text": {
+    "text_after": {
       "type": "richtext"
+    },
+    "CTA": {
+      "type": "component",
+      "component": "shared.cta",
+      "repeatable": true
     }
   },
   "config": {}
