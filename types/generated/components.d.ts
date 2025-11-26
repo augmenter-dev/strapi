@@ -113,10 +113,12 @@ export interface SharedTicketType extends Struct.ComponentSchema {
 export interface SharedTicketing extends Struct.ComponentSchema {
   collectionName: 'components_shared_ticketings';
   info: {
-    displayName: 'ticketing';
+    displayName: 'Ticketing';
   };
   attributes: {
+    text: Schema.Attribute.RichText;
     tickets: Schema.Attribute.Component<'shared.ticket-type', true>;
+    title: Schema.Attribute.String;
   };
 }
 

@@ -21,7 +21,8 @@
       "components": [
         "shared.ticketing",
         "shared.rich-text-section",
-        "shared.hero"
+        "shared.hero",
+        "shared.slider"
       ]
     }
   }

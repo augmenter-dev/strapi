@@ -509,7 +509,12 @@ export interface ApiAugmenterConfAugmenterConf extends Struct.SingleTypeSchema {
   };
   attributes: {
     content: Schema.Attribute.DynamicZone<
-      ['shared.ticketing', 'shared.rich-text-section', 'shared.hero']
+      [
+        'shared.ticketing',
+        'shared.rich-text-section',
+        'shared.hero',
+        'shared.slider',
+      ]
     >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
