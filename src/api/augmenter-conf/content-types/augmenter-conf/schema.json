@@ -4,7 +4,7 @@
   "info": {
     "singularName": "augmenter-conf",
     "pluralName": "augmenter-confs",
-    "displayName": "augmenter conf"
+    "displayName": "Augmenter conf"
   },
   "options": {
     "draftAndPublish": true
@@ -16,15 +16,13 @@
       "component": "shared.seo",
       "repeatable": false
     },
-    "sections": {
-      "type": "component",
-      "component": "shared.rich-text-section",
-      "repeatable": true
-    },
-    "tickets": {
-      "type": "component",
-      "component": "shared.ticketing",
-      "repeatable": false
+    "content": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.ticketing",
+        "shared.rich-text-section",
+        "shared.hero"
+      ]
     }
   }
 }

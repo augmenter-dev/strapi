@@ -14,7 +14,7 @@
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
     "termsOfService": "YOUR_TERMS_OF_SERVICE_URL",
-    "x-generation-date": "2025-11-26T10:13:17.956Z"
+    "x-generation-date": "2025-11-26T10:25:19.189Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -6436,14 +6436,29 @@
               "seo": {
                 "$ref": "#/components/schemas/SharedSeoComponent"
               },
-              "sections": {
+              "content": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/SharedRichTextSectionComponent"
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/SharedTicketingComponent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SharedRichTextSectionComponent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SharedHeroComponent"
+                    }
+                  ]
+                },
+                "discriminator": {
+                  "propertyName": "__component",
+                  "mapping": {
+                    "shared.ticketing": "#/components/schemas/SharedTicketingComponent",
+                    "shared.rich-text-section": "#/components/schemas/SharedRichTextSectionComponent",
+                    "shared.hero": "#/components/schemas/SharedHeroComponent"
+                  }
                 }
-              },
-              "tickets": {
-                "$ref": "#/components/schemas/SharedTicketingComponent"
               },
               "locale": {
                 "type": "string"
@@ -6513,14 +6528,29 @@
           "seo": {
             "$ref": "#/components/schemas/SharedSeoComponent"
           },
-          "sections": {
+          "content": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/SharedRichTextSectionComponent"
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/SharedTicketingComponent"
+                },
+                {
+                  "$ref": "#/components/schemas/SharedRichTextSectionComponent"
+                },
+                {
+                  "$ref": "#/components/schemas/SharedHeroComponent"
+                }
+              ]
+            },
+            "discriminator": {
+              "propertyName": "__component",
+              "mapping": {
+                "shared.ticketing": "#/components/schemas/SharedTicketingComponent",
+                "shared.rich-text-section": "#/components/schemas/SharedRichTextSectionComponent",
+                "shared.hero": "#/components/schemas/SharedHeroComponent"
+              }
             }
-          },
-          "tickets": {
-            "$ref": "#/components/schemas/SharedTicketingComponent"
           },
           "createdAt": {
             "type": "string",
@@ -6573,14 +6603,29 @@
                 "seo": {
                   "$ref": "#/components/schemas/SharedSeoComponent"
                 },
-                "sections": {
+                "content": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/SharedRichTextSectionComponent"
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/SharedTicketingComponent"
+                      },
+                      {
+                        "$ref": "#/components/schemas/SharedRichTextSectionComponent"
+                      },
+                      {
+                        "$ref": "#/components/schemas/SharedHeroComponent"
+                      }
+                    ]
+                  },
+                  "discriminator": {
+                    "propertyName": "__component",
+                    "mapping": {
+                      "shared.ticketing": "#/components/schemas/SharedTicketingComponent",
+                      "shared.rich-text-section": "#/components/schemas/SharedRichTextSectionComponent",
+                      "shared.hero": "#/components/schemas/SharedHeroComponent"
+                    }
                   }
-                },
-                "tickets": {
-                  "$ref": "#/components/schemas/SharedTicketingComponent"
                 },
                 "createdAt": {
                   "type": "string",
@@ -6792,20 +6837,6 @@
           }
         }
       },
-      "SharedRichTextSectionComponent": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "title": {
-            "type": "string"
-          },
-          "text": {
-            "type": "string"
-          }
-        }
-      },
       "SharedTicketTypeComponent": {
         "type": "object",
         "properties": {
@@ -6835,10 +6866,76 @@
           "id": {
             "type": "number"
           },
+          "__component": {
+            "type": "string",
+            "enum": [
+              "shared.ticketing"
+            ]
+          },
           "tickets": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/SharedTicketTypeComponent"
+            }
+          }
+        }
+      },
+      "SharedRichTextSectionComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "__component": {
+            "type": "string",
+            "enum": [
+              "shared.rich-text-section"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      },
+      "SharedCtaComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "SharedHeroComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "__component": {
+            "type": "string",
+            "enum": [
+              "shared.hero"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "cta": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SharedCtaComponent"
             }
           }
         }
