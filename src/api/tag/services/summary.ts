@@ -41,7 +41,6 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
       console.warn(`Tag with documentId ${tagDocumentId} not found`);
       return;
     }
-    console.log("tag", JSON.stringify(tag, null, 2));
     // 2. Fetch recent articles for this tag
     const articles = await strapi.documents("api::article.article").findMany({
       status: "published",
