@@ -1,6 +1,6 @@
-const { algoliaTransformer } = require("../src/utils/algolia");
+import { algoliaTransformer } from "../src/utils/algolia";
 
-module.exports = ({ env }) => ({
+export default ({ env }: { env: any }) => ({
   documentation: {
     enabled: true,
     config: {
@@ -52,3 +52,4 @@ module.exports = ({ env }) => ({
     },
   },
 });
+

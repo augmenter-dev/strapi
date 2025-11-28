@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   'strapi::logger',
   'strapi::errors',
   'strapi::security',
@@ -10,3 +10,4 @@ module.exports = [
   'strapi::favicon',
   'strapi::public',
 ];
+

@@ -487,6 +487,9 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     metadata: Schema.Attribute.Text;
     publicationDate: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
+    regenerateExcerpt: Schema.Attribute.Boolean &
+      Schema.Attribute.Private &
+      Schema.Attribute.DefaultTo<false>;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
@@ -617,6 +620,8 @@ export interface ApiTagTag extends Struct.CollectionTypeSchema {
     pointers: Schema.Attribute.Relation<'manyToMany', 'api::pointer.pointer'>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    summary: Schema.Attribute.Text;
+    summaryCacheKey: Schema.Attribute.String & Schema.Attribute.Private;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

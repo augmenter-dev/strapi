@@ -50,6 +50,11 @@
     "excerpt": {
       "type": "richtext"
     },
+    "regenerateExcerpt": {
+      "type": "boolean",
+      "default": false,
+      "private": true
+    },
     "tldr": {
       "type": "richtext"
     },

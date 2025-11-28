@@ -1,0 +1,4 @@
+Before running any terminal commands, check if the current shell is using the correct node version as defined in .nvmrc.
+If in a new shell or if the version is incorrect, run `nvm use` (and `nvm install` if needed) first.
+Always ensure the environment matches the project requirements (Node v22).
+
