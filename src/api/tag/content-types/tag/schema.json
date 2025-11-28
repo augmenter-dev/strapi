@@ -40,6 +40,10 @@
     },
     "summary": {
       "type": "string"
+    },
+    "summaryCacheKey": {
+      "type": "string",
+      "private": true
     }
   }
 }
