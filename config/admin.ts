@@ -1,4 +1,4 @@
-module.exports = ({ env }) => ({
+export default ({ env }: { env: any }) => ({
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
   },
@@ -15,3 +15,4 @@ module.exports = ({ env }) => ({
     promoteEE: env.bool('FLAG_PROMOTE_EE', true),
   },
 });
+

@@ -1,4 +1,4 @@
-const extractExcerptFromContent = (content) => {
+const extractExcerptFromContent = (content: string) => {
   if (!content) return "";
 
   const paragraphs = content
@@ -17,7 +17,7 @@ const extractExcerptFromContent = (content) => {
     .trim();
 };
 
-const transformArticle = (data) => {
+const transformArticle = (data: any) => {
   // Validate required fields
   if (!data.documentId || !data.title || !data.slug) {
     return data; // Let Strapi/Algolia handle invalid data or skip if possible
@@ -28,7 +28,7 @@ const transformArticle = (data) => {
 
   const tags =
     data.tags
-      ?.map((tag) => ({
+      ?.map((tag: any) => ({
         name: tag.name,
         slug: tag.slug,
       }))
@@ -41,10 +41,10 @@ const transformArticle = (data) => {
     new Date().toISOString();
 
   const fullContent = `${data.title} ${description} ${tags
-    .map((t) => t.name)
+    .map((t: any) => t.name)
     .join(" ")}`;
 
-  const record = {
+  const record: any = {
     objectID: data.documentId,
     id: data.id,
     title: data.title,
@@ -59,7 +59,7 @@ const transformArticle = (data) => {
     date: new Date(date).getTime(),
     publicationDate: date,
     _tags: [
-      ...tags.map((tag) => tag.slug),
+      ...tags.map((tag: any) => tag.slug),
       ...(data.articleType ? [data.articleType] : []),
       ...(data.highlight ? ["highlighted"] : []),
     ],
@@ -77,12 +77,10 @@ const transformArticle = (data) => {
   return record;
 };
 
-module.exports = {
-  algoliaTransformer: (contentType, data) => {
-    if (contentType === "api::article.article") {
-      return transformArticle(data);
-    }
-    return data;
-  },
+export const algoliaTransformer = (contentType: string, data: any) => {
+  if (contentType === "api::article.article") {
+    return transformArticle(data);
+  }
+  return data;
 };
 

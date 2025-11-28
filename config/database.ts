@@ -1,9 +1,9 @@
-const path = require('path');
+import path from 'path';
 
-module.exports = ({ env }) => {
+export default ({ env }: { env: any }) => {
   const client = env('DATABASE_CLIENT', 'sqlite');
 
-  const connections = {
+  const connections: any = {
     mysql: {
       connection: {
         host: env('DATABASE_HOST', 'localhost'),
@@ -44,7 +44,7 @@ module.exports = ({ env }) => {
     },
     sqlite: {
       connection: {
-        filename: path.join(__dirname, '..', env('DATABASE_FILENAME', '.tmp/data.db')),
+        filename: path.join(__dirname, '..', '..', env('DATABASE_FILENAME', '.tmp/data.db')),
       },
       useNullAsDefault: true,
     },
@@ -58,3 +58,4 @@ module.exports = ({ env }) => {
     },
   };
 };
+

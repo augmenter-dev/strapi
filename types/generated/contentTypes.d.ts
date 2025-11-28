@@ -617,6 +617,7 @@ export interface ApiTagTag extends Struct.CollectionTypeSchema {
     pointers: Schema.Attribute.Relation<'manyToMany', 'api::pointer.pointer'>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    summary: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
