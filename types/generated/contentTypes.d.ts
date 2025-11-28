@@ -487,6 +487,9 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     metadata: Schema.Attribute.Text;
     publicationDate: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
+    regenerateExcerpt: Schema.Attribute.Boolean &
+      Schema.Attribute.Private &
+      Schema.Attribute.DefaultTo<false>;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;

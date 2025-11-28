@@ -1,6 +1,27 @@
 declare var strapi: any;
 
 export default {
+  async beforeCreate(event) {
+    const { data } = event.params;
+    if (!data.excerpt && data.content) {
+      data.excerpt = extractExcerptFromContent(data.content);
+    }
+  },
+
+  async beforeUpdate(event) {
+    const { data } = event.params;
+
+    // Check if we need to regenerate (checkbox checked) OR if it's missing
+    const shouldRegenerate = data.regenerateExcerpt === true;
+    const isMissing = !data.excerpt && data.content;
+
+    if ((shouldRegenerate || isMissing) && data.content) {
+      data.excerpt = extractExcerptFromContent(data.content);
+      // Reset the switch so it doesn't regenerate next time automatically
+      data.regenerateExcerpt = false;
+    }
+  },
+
   async afterCreate(event) {
     const { result } = event;
     if (result.publishedAt) {
@@ -44,4 +65,26 @@ async function updateTagsForArticle(articleId: number | string) {
       error
     );
   }
+}
+
+function extractExcerptFromContent(content?: string): string {
+  if (!content) return "";
+
+  // Split content by double line breaks to get paragraphs
+  const paragraphs = content
+    .split(/\n{2,}/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+
+  const firstTwo = paragraphs.slice(0, 2);
+
+  const combined = firstTwo.join(" ");
+
+  // Simple markdown removal: remove inline code, bold/italic, headings, images, links etc.
+  return combined
+    .replace(/`[^`]*`/g, "") // inline code
+    .replace(/!?\[[^\]]*]\([^\)]*\)/g, "") // images & links
+    .replace(/[#*_>~`]/g, "") // basic markdown chars
+    .replace(/\s+/g, " ") // collapse whitespace
+    .trim();
 }
