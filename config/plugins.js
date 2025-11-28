@@ -1,16 +1,18 @@
-module.exports = () => ({
+const { algoliaTransformer } = require("../src/utils/algolia");
+
+module.exports = ({ env }) => ({
   documentation: {
     enabled: true,
     config: {
       openapi: "3.0.0",
       info: {
         version: "1.0.0",
-        title: "Oltre STRAPI API",
+        title: "Augmenter Strapi API",
         description: "",
         contact: {
-          name: "Oltre",
-          email: "jjy.quem@gmail.com",
-          url: "olter.dev",
+          name: "Augmenter",
+          email: "julien@oltre.dev",
+          url: "augmenter.dev",
         },
         license: {
           name: "UNLICENSED",
@@ -24,11 +26,29 @@ module.exports = () => ({
       servers: [
         { url: "http://localhost:1337/api", description: "Development server" },
         {
-          url: "https://shining-broccoli-866f330b9c.strapiapp.com/api",
+          url: "https://strapi.oltre.dev/api",
           description: "Production server",
         },
       ],
       security: [{ bearerAuth: [] }],
+    },
+  },
+  "strapi-algolia": {
+    enabled: true,
+    config: {
+      apiKey: env("ALGOLIA_PROVIDER_ADMIN_API_KEY"),
+      applicationId: env("ALGOLIA_PROVIDER_APP_ID"),
+      contentTypes: [
+        {
+          name: "api::article.article",
+          index: "articles",
+          populate: {
+            cover: true,
+            tags: true,
+          },
+        },
+      ],
+      transformerCallback: algoliaTransformer,
     },
   },
 });
