@@ -490,6 +490,10 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     regenerateExcerpt: Schema.Attribute.Boolean &
       Schema.Attribute.Private &
       Schema.Attribute.DefaultTo<false>;
+    relatedArticles: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::article.article'
+    >;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;

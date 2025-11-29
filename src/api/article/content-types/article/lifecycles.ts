@@ -26,16 +26,88 @@ export default {
     const { result } = event;
     if (result.publishedAt) {
       await updateTagsForArticle(result.id);
+      // Trigger related articles update (for self + neighbors)
+      await handleRelatedArticlesUpdate(result.documentId);
     }
   },
 
   async afterUpdate(event) {
-    const { result } = event;
+    const { result, params } = event;
+
+    // Prevent infinite loops: if we're only updating relatedArticles, stop.
+    const dataKeys = Object.keys(params.data || {});
+    if (dataKeys.length === 1 && dataKeys.includes("relatedArticles")) {
+      return;
+    }
+
     if (result.publishedAt) {
       await updateTagsForArticle(result.id);
+      // Trigger related articles update (for self + neighbors)
+      await handleRelatedArticlesUpdate(result.documentId);
     }
   },
 };
+
+async function handleRelatedArticlesUpdate(articleId: string) {
+  try {
+    const service = strapi.service("api::article.related-articles");
+    if (!service) return;
+
+    // 1. Update the current article
+    await service.updateRelatedArticles(articleId);
+
+    // 2. Fan-out: Update 5 most recent articles that share tags
+    // Get current article tags first
+    const currentArticle = await strapi
+      .documents("api::article.article")
+      .findOne({
+        documentId: articleId,
+        populate: ["tags"],
+      });
+
+    if (
+      !currentArticle ||
+      !currentArticle.tags ||
+      currentArticle.tags.length === 0
+    ) {
+      return;
+    }
+
+    const currentTagSlugs = currentArticle.tags.map((t) => t.slug);
+
+    // Find recent neighbors
+    const neighbors = await strapi.documents("api::article.article").findMany({
+      filters: {
+        tags: {
+          slug: {
+            $in: currentTagSlugs,
+          },
+        },
+        documentId: {
+          $ne: articleId,
+        },
+        publishedAt: {
+          $notNull: true,
+        },
+      },
+      sort: "publishedAt:desc",
+      limit: 5,
+    });
+
+    // Update them
+    // Use Promise.allSettled to prevent one failure from stopping others
+    await Promise.allSettled(
+      neighbors.map((article) =>
+        service.updateRelatedArticles(article.documentId)
+      )
+    );
+  } catch (error) {
+    console.error(
+      `Error in handleRelatedArticlesUpdate for ${articleId}:`,
+      error
+    );
+  }
+}
 
 async function updateTagsForArticle(articleId: number | string) {
   try {
