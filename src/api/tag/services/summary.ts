@@ -98,6 +98,11 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
         },
       });
 
+      // 7. Publish the update
+      await strapi.documents("api::tag.tag").publish({
+        documentId: tagDocumentId,
+      });
+
       console.log(`Successfully updated summary for tag "${tag.name}".`);
     } catch (error) {
       console.error(`Failed to update summary for tag "${tag.name}":`, error);
