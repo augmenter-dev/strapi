@@ -27,7 +27,8 @@ export default {
     if (result.publishedAt) {
       await updateTagsForArticle(result.id);
       // Trigger related articles update (for self + neighbors)
-      await handleRelatedArticlesUpdate(result.documentId);
+      // We explicitly allow propagation here as this is the primary update
+      await handleRelatedArticlesUpdate(result.documentId, true);
     }
   },
 
@@ -50,18 +51,28 @@ export default {
     if (result.publishedAt) {
       await updateTagsForArticle(result.id);
       // Trigger related articles update (for self + neighbors)
-      await handleRelatedArticlesUpdate(result.documentId);
+      // We explicitly allow propagation here as this is the primary update
+      await handleRelatedArticlesUpdate(result.documentId, true);
     }
   },
 };
 
-async function handleRelatedArticlesUpdate(articleId: string) {
+async function handleRelatedArticlesUpdate(
+  articleId: string,
+  shouldPropagate = true
+) {
   try {
     const service = strapi.service("api::article.related-articles");
     if (!service) return;
 
     // 1. Update the current article
     await service.updateRelatedArticles(articleId);
+
+    // If propagation is disabled, stop here.
+    // This prevents cascading updates when we are already processing a neighbor.
+    if (!shouldPropagate) {
+      return;
+    }
 
     // 2. Fan-out: Update 5 most recent articles that share tags
     // Get current article tags first
