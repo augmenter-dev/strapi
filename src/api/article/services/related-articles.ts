@@ -58,6 +58,7 @@ export default factories.createCoreService(
         const candidates = (await strapi
           .documents("api::article.article")
           .findMany({
+            status: "published",
             filters: {
               tags: {
                 slug: {
