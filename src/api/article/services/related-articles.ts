@@ -17,11 +17,11 @@ export default factories.createCoreService(
             populate: ["tags", "relatedArticles"],
           })) as any; // Cast to any to avoid TS errors with populated fields
 
-        if (
-          !currentArticle ||
-          !currentArticle.tags ||
-          currentArticle.tags.length === 0
-        ) {
+        if (!currentArticle) {
+          return;
+        }
+
+        if (!currentArticle.tags || currentArticle.tags.length === 0) {
           // If no tags, clear related articles if not already empty
           if (
             currentArticle.relatedArticles &&
