@@ -34,8 +34,15 @@ export default {
   async afterUpdate(event) {
     const { result, params } = event;
 
-    // Prevent infinite loops: if we're only updating relatedArticles, stop.
-    const dataKeys = Object.keys(params.data || {});
+    // Prevent infinite loops for internal relatedArticles updates.
+    // We rely on an explicit context flag set by the related-articles service,
+    // and keep the data-key check as an extra safeguard / backwards compatibility.
+    const context = (params && (params as any).context) || {};
+    if (context.skipRelatedLifecycle === true) {
+      return;
+    }
+
+    const dataKeys = Object.keys(params?.data || {});
     if (dataKeys.length === 1 && dataKeys.includes("relatedArticles")) {
       return;
     }

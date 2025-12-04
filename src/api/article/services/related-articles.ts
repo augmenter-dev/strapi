@@ -35,6 +35,9 @@ export default factories.createCoreService(
             if (currentArticle.publishedAt) {
               await strapi.documents("api::article.article").publish({
                 documentId: articleId,
+                // Mark this as an internal publish so the lifecycle
+                // can skip re-triggering the related-articles logic.
+                context: { skipRelatedLifecycle: true },
               });
               console.log(
                 `✅ [Related Articles] Cleared related articles for "${currentArticle.title}" (${articleId}) - Article republished`
@@ -137,6 +140,9 @@ export default factories.createCoreService(
           // 8. Publish the update
           await strapi.documents("api::article.article").publish({
             documentId: articleId,
+            // Mark this as an internal publish so the lifecycle
+            // can skip re-triggering the related-articles logic.
+            context: { skipRelatedLifecycle: true },
           });
           console.log(
             `✅ [Related Articles] Updated "${currentArticle.title}" (${articleId})\n   └─ Found ${topRelatedIds.length} related article(s) based on ${currentTags.length} tag(s)`
