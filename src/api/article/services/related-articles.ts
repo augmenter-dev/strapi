@@ -14,7 +14,7 @@ export default factories.createCoreService(
           .documents("api::article.article")
           .findOne({
             documentId: articleId,
-            populate: ["tags"],
+            populate: ["tags", "relatedArticles"],
           })) as any; // Cast to any to avoid TS errors with populated fields
 
         if (
@@ -22,11 +22,29 @@ export default factories.createCoreService(
           !currentArticle.tags ||
           currentArticle.tags.length === 0
         ) {
-          // If no tags, clear related articles
-          await strapi.documents("api::article.article").update({
-            documentId: articleId,
-            data: { relatedArticles: [] },
-          });
+          // If no tags, clear related articles if not already empty
+          if (
+            currentArticle.relatedArticles &&
+            currentArticle.relatedArticles.length > 0
+          ) {
+            await strapi.documents("api::article.article").update({
+              documentId: articleId,
+              data: { relatedArticles: [] },
+            });
+            // Publish the update if article is already published
+            if (currentArticle.publishedAt) {
+              await strapi.documents("api::article.article").publish({
+                documentId: articleId,
+              });
+              console.log(
+                `✅ [Related Articles] Cleared related articles for "${currentArticle.title}" (${articleId}) - Article republished`
+              );
+            } else {
+              console.log(
+                `✅ [Related Articles] Cleared related articles for "${currentArticle.title}" (${articleId}) - Article is draft`
+              );
+            }
+          }
           return;
         }
 
@@ -96,24 +114,46 @@ export default factories.createCoreService(
         // 5. Select Top 3
         const topRelatedIds = scoredCandidates.slice(0, 3).map((c) => c.id);
 
-        // 6. Update Article
-        // use emitEvent: false to prevent triggering infinite lifecycle loops if we were listening to 'update' universally
-        // (Though our lifecycle logic will handle recursion check, this is a safety net)
-        await strapi.documents("api::article.article").update({
-          documentId: articleId,
-          data: {
-            relatedArticles: topRelatedIds,
-          },
-        });
-
-        console.log(
-          `Updated related articles for ${articleId} (${currentArticle.title}): found ${topRelatedIds.length} matches.`
+        // 6. Check if update is needed
+        const currentRelatedIds = (currentArticle.relatedArticles || []).map(
+          (rel: any) => rel.documentId
         );
+
+        const hasChanged =
+          currentRelatedIds.length !== topRelatedIds.length ||
+          !currentRelatedIds.every(
+            (id: string, index: number) => id === topRelatedIds[index]
+          );
+
+        if (hasChanged) {
+          // 7. Update Article
+          await strapi.documents("api::article.article").update({
+            emitEvent: false,
+            documentId: articleId,
+            data: {
+              relatedArticles: topRelatedIds,
+            },
+          });
+          // 8. Publish the update
+          await strapi.documents("api::article.article").publish({
+            documentId: articleId,
+          });
+          console.log(
+            `✅ [Related Articles] Updated "${currentArticle.title}" (${articleId})\n   └─ Found ${topRelatedIds.length} related article(s) based on ${currentTags.length} tag(s)`
+          );
+        } else {
+          console.log(
+            `ℹ️  [Related Articles] "${currentArticle.title}" (${articleId}) - No changes needed\n   └─ Related articles already up to date`
+          );
+        }
       } catch (error) {
         console.error(
-          `Error updating related articles for article ${articleId}:`,
-          error
+          `❌ [Related Articles] Failed to update related articles for article ${articleId}:`,
+          error instanceof Error ? error.message : error
         );
+        if (error instanceof Error && error.stack) {
+          console.error(`   Stack trace:`, error.stack);
+        }
       }
     },
   })

@@ -33,10 +33,11 @@ export default {
       const tagIds = updatedTags.map((t) => t.documentId);
 
       // 2. Find articles associated with these tags
-      // We want articles that have ANY of these tags
+      // We want articles that have ANY of these tags and are published
       const affectedArticles = await strapi
         .documents("api::article.article")
         .findMany({
+          status: "published",
           filters: {
             tags: {
               documentId: {
