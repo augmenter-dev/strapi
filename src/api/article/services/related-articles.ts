@@ -138,16 +138,22 @@ export default factories.createCoreService(
               relatedArticles: topRelatedIds,
             },
           });
-          // 8. Publish the update
-          await strapi.documents("api::article.article").publish({
-            documentId: articleId,
-            // Mark this as an internal publish so the lifecycle
-            // can skip re-triggering the related-articles logic.
-            context: { skipRelatedLifecycle: true },
-          });
-          console.log(
-            `✅ [Related Articles] Updated "${currentArticle.title}" (${articleId})\n   └─ Found ${topRelatedIds.length} related article(s) based on ${currentTags.length} tag(s)`
-          );
+          // 8. Publish the update if article is already published
+          if (currentArticle.publishedAt) {
+            await strapi.documents("api::article.article").publish({
+              documentId: articleId,
+              // Mark this as an internal publish so the lifecycle
+              // can skip re-triggering the related-articles logic.
+              context: { skipRelatedLifecycle: true },
+            });
+            console.log(
+              `✅ [Related Articles] Updated "${currentArticle.title}" (${articleId}) - Article republished\n   └─ Found ${topRelatedIds.length} related article(s) based on ${currentTags.length} tag(s)`
+            );
+          } else {
+            console.log(
+              `✅ [Related Articles] Updated "${currentArticle.title}" (${articleId}) - Article is draft\n   └─ Found ${topRelatedIds.length} related article(s) based on ${currentTags.length} tag(s)`
+            );
+          }
         } else {
           console.log(
             `ℹ️  [Related Articles] "${currentArticle.title}" (${articleId}) - No changes needed\n   └─ Related articles already up to date`

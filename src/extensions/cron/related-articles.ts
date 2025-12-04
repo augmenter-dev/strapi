@@ -57,6 +57,11 @@ export default {
 
       const service = strapi.service("api::article.related-articles");
 
+      if (!service) {
+        console.error("[Cron] Related articles service not found.");
+        return;
+      }
+
       // 3. Update related articles for each affected article
       let successCount = 0;
       let errorCount = 0;
