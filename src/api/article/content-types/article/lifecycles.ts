@@ -95,6 +95,7 @@ async function handleRelatedArticlesUpdate(
 
     // Find recent neighbors
     const neighbors = await strapi.documents("api::article.article").findMany({
+      status: "published",
       filters: {
         tags: {
           slug: {
@@ -103,9 +104,6 @@ async function handleRelatedArticlesUpdate(
         },
         documentId: {
           $ne: articleId,
-        },
-        publishedAt: {
-          $notNull: true,
         },
       },
       sort: "publishedAt:desc",
