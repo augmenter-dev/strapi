@@ -112,9 +112,10 @@ async function handleRelatedArticlesUpdate(
 
     // Update them
     // Use Promise.allSettled to prevent one failure from stopping others
+    // Pass shouldPropagate: false to prevent infinite cascade
     await Promise.allSettled(
       neighbors.map((article) =>
-        service.updateRelatedArticles(article.documentId)
+        handleRelatedArticlesUpdate(article.documentId, false)
       )
     );
   } catch (error) {
