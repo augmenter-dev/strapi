@@ -19,7 +19,6 @@ export default ({ env }: { env: any }) => ({
         },
       },
       "x-strapi-config": {
-        // Leave empty to ignore plugins during generation
         plugins: ["upload", "users-permissions"],
         path: "/documentation",
       },

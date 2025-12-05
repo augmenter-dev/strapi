@@ -52,8 +52,8 @@
     },
     "regenerateExcerpt": {
       "type": "boolean",
-      "default": false,
-      "private": true
+      "private": true,
+      "default": false
     },
     "tldr": {
       "type": "richtext"
@@ -69,6 +69,11 @@
     },
     "publicationDate": {
       "type": "datetime"
+    },
+    "relatedArticles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::article.article"
     }
   }
 }
