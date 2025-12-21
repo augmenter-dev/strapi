@@ -15,6 +15,9 @@
       "type": "component",
       "component": "shared.cta",
       "repeatable": true
+    },
+    "html_anchor": {
+      "type": "string"
     }
   },
   "config": {}

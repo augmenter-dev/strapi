@@ -22,7 +22,8 @@
         "shared.ticketing",
         "shared.rich-text-section",
         "shared.hero",
-        "shared.slider"
+        "shared.slider",
+        "shared.contact-list-form"
       ]
     }
   }
