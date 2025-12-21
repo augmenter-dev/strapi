@@ -17,6 +17,9 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "html_anchor": {
+      "type": "string"
     }
   }
 }

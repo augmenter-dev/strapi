@@ -10,6 +10,9 @@
     },
     "url": {
       "type": "string"
+    },
+    "html_anchor": {
+      "type": "string"
     }
   },
   "config": {}

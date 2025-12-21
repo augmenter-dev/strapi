@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_shared_contact_list_forms",
+  "info": {
+    "displayName": "Contact list form"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "submit_label": {
+      "type": "string"
+    },
+    "success_message": {
+      "type": "richtext"
+    },
+    "html_anchor": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

@@ -521,6 +521,7 @@ export interface ApiAugmenterConfAugmenterConf extends Struct.SingleTypeSchema {
         'shared.rich-text-section',
         'shared.hero',
         'shared.slider',
+        'shared.contact-list-form',
       ]
     >;
     createdAt: Schema.Attribute.DateTime;

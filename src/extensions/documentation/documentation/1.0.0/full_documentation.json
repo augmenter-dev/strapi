@@ -14,7 +14,7 @@
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
     "termsOfService": "YOUR_TERMS_OF_SERVICE_URL",
-    "x-generation-date": "2025-12-21T12:08:33.752Z"
+    "x-generation-date": "2025-12-21T13:02:25.110Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -7014,6 +7014,9 @@
                     },
                     {
                       "$ref": "#/components/schemas/SharedSliderComponent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SharedContactListFormComponent"
                     }
                   ]
                 },
@@ -7023,7 +7026,8 @@
                     "shared.ticketing": "#/components/schemas/SharedTicketingComponent",
                     "shared.rich-text-section": "#/components/schemas/SharedRichTextSectionComponent",
                     "shared.hero": "#/components/schemas/SharedHeroComponent",
-                    "shared.slider": "#/components/schemas/SharedSliderComponent"
+                    "shared.slider": "#/components/schemas/SharedSliderComponent",
+                    "shared.contact-list-form": "#/components/schemas/SharedContactListFormComponent"
                   }
                 }
               },
@@ -7110,6 +7114,9 @@
                 },
                 {
                   "$ref": "#/components/schemas/SharedSliderComponent"
+                },
+                {
+                  "$ref": "#/components/schemas/SharedContactListFormComponent"
                 }
               ]
             },
@@ -7119,7 +7126,8 @@
                 "shared.ticketing": "#/components/schemas/SharedTicketingComponent",
                 "shared.rich-text-section": "#/components/schemas/SharedRichTextSectionComponent",
                 "shared.hero": "#/components/schemas/SharedHeroComponent",
-                "shared.slider": "#/components/schemas/SharedSliderComponent"
+                "shared.slider": "#/components/schemas/SharedSliderComponent",
+                "shared.contact-list-form": "#/components/schemas/SharedContactListFormComponent"
               }
             }
           },
@@ -7189,6 +7197,9 @@
                       },
                       {
                         "$ref": "#/components/schemas/SharedSliderComponent"
+                      },
+                      {
+                        "$ref": "#/components/schemas/SharedContactListFormComponent"
                       }
                     ]
                   },
@@ -7198,7 +7209,8 @@
                       "shared.ticketing": "#/components/schemas/SharedTicketingComponent",
                       "shared.rich-text-section": "#/components/schemas/SharedRichTextSectionComponent",
                       "shared.hero": "#/components/schemas/SharedHeroComponent",
-                      "shared.slider": "#/components/schemas/SharedSliderComponent"
+                      "shared.slider": "#/components/schemas/SharedSliderComponent",
+                      "shared.contact-list-form": "#/components/schemas/SharedContactListFormComponent"
                     }
                   }
                 },
@@ -7446,6 +7458,9 @@
           },
           "url": {
             "type": "string"
+          },
+          "html_anchor": {
+            "type": "string"
           }
         }
       },
@@ -7484,6 +7499,9 @@
           },
           "ticketing_url": {
             "type": "string"
+          },
+          "html_anchor": {
+            "type": "string"
           }
         }
       },
@@ -7510,6 +7528,9 @@
             "items": {
               "$ref": "#/components/schemas/SharedCtaComponent"
             }
+          },
+          "html_anchor": {
+            "type": "string"
           }
         }
       },
@@ -7536,6 +7557,9 @@
             "items": {
               "$ref": "#/components/schemas/SharedCtaComponent"
             }
+          },
+          "html_anchor": {
+            "type": "string"
           }
         }
       },
@@ -7685,6 +7709,38 @@
                 }
               }
             }
+          },
+          "html_anchor": {
+            "type": "string"
+          }
+        }
+      },
+      "SharedContactListFormComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "__component": {
+            "type": "string",
+            "enum": [
+              "shared.contact-list-form"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "submit_label": {
+            "type": "string"
+          },
+          "success_message": {
+            "type": "string"
+          },
+          "html_anchor": {
+            "type": "string"
           }
         }
       },

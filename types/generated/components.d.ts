@@ -13,12 +13,27 @@ export interface SharedCommonUrl extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedContactListForm extends Struct.ComponentSchema {
+  collectionName: 'components_shared_contact_list_forms';
+  info: {
+    displayName: 'Contact list form';
+  };
+  attributes: {
+    description: Schema.Attribute.RichText;
+    html_anchor: Schema.Attribute.String;
+    submit_label: Schema.Attribute.String;
+    success_message: Schema.Attribute.RichText;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SharedCta extends Struct.ComponentSchema {
   collectionName: 'components_shared_ctas';
   info: {
     displayName: 'CTA';
   };
   attributes: {
+    html_anchor: Schema.Attribute.String;
     title: Schema.Attribute.String;
     url: Schema.Attribute.String;
   };
@@ -32,6 +47,7 @@ export interface SharedHero extends Struct.ComponentSchema {
   attributes: {
     content: Schema.Attribute.RichText;
     cta: Schema.Attribute.Component<'shared.cta', true>;
+    html_anchor: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
 }
@@ -78,6 +94,7 @@ export interface SharedRichTextSection extends Struct.ComponentSchema {
   };
   attributes: {
     CTA: Schema.Attribute.Component<'shared.cta', true>;
+    html_anchor: Schema.Attribute.String;
     text: Schema.Attribute.RichText;
     title: Schema.Attribute.String;
   };
@@ -107,6 +124,7 @@ export interface SharedSlider extends Struct.ComponentSchema {
   };
   attributes: {
     files: Schema.Attribute.Media<'images', true>;
+    html_anchor: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
 }
@@ -132,6 +150,7 @@ export interface SharedTicketing extends Struct.ComponentSchema {
   };
   attributes: {
     CTA: Schema.Attribute.Component<'shared.cta', true>;
+    html_anchor: Schema.Attribute.String;
     text_after: Schema.Attribute.RichText;
     text_before: Schema.Attribute.RichText;
     ticketing_url: Schema.Attribute.String;
@@ -144,6 +163,7 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'shared.common-url': SharedCommonUrl;
+      'shared.contact-list-form': SharedContactListForm;
       'shared.cta': SharedCta;
       'shared.hero': SharedHero;
       'shared.media': SharedMedia;
