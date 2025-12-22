@@ -6,10 +6,12 @@
   "options": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "description": {
-      "type": "richtext"
+      "type": "richtext",
+      "required": true
     },
     "submit_label": {
       "type": "string"
@@ -19,6 +21,10 @@
     },
     "html_anchor": {
       "type": "string"
+    },
+    "source": {
+      "type": "string",
+      "required": true
     }
   },
   "config": {}
