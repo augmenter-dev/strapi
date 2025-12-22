@@ -84,7 +84,9 @@ async function listTags({ strapiUrl, token, pageSize }) {
 }
 
 async function updateTagSummary({ strapiUrl, token, documentId, shouldWait }) {
-  const url = new URL(`${strapiUrl}/api/tags/${encodeURIComponent(documentId)}/update-summary`);
+  const url = new URL(
+    `${strapiUrl}/api/tags/${encodeURIComponent(documentId)}/update-summary`
+  );
   if (shouldWait) url.searchParams.set("wait", "true");
 
   return fetchJson(url.toString(), {
@@ -142,7 +144,9 @@ async function main() {
     return summary == null || String(summary).trim().length === 0;
   });
 
-  console.log(`Fetched ${tags.length} tag(s). Missing summary: ${tagsWithoutSummary.length}.`);
+  console.log(
+    `Fetched ${tags.length} tag(s). Missing summary: ${tagsWithoutSummary.length}.`
+  );
 
   if (tagsWithoutSummary.length === 0) return;
 
@@ -163,7 +167,9 @@ async function main() {
 
     if (isDryRun) {
       processed += 1;
-      console.log(`[DRY_RUN] Would update summary for tag "${name}" (${documentId})`);
+      console.log(
+        `[DRY_RUN] Would update summary for tag "${name}" (${documentId})`
+      );
       return;
     }
 
@@ -171,7 +177,9 @@ async function main() {
       await updateTagSummary({ strapiUrl, token, documentId, shouldWait });
       succeeded += 1;
       processed += 1;
-      console.log(`Updated summary for tag "${name}" (${documentId}) [${processed}/${tagsWithoutSummary.length}]`);
+      console.log(
+        `Updated summary for tag "${name}" (${documentId}) [${processed}/${tagsWithoutSummary.length}]`
+      );
     } catch (error) {
       failed += 1;
       processed += 1;
@@ -191,5 +199,3 @@ main().catch((error) => {
   console.error(error);
   process.exit(1);
 });
-
-

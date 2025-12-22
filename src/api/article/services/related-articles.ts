@@ -9,6 +9,21 @@ export default factories.createCoreService(
   ({ strapi }) => ({
     async updateRelatedArticles(articleId: string) {
       try {
+        const hasPublishedVersion = async (documentId: string) => {
+          try {
+            const published = await strapi
+              .documents("api::article.article")
+              .findOne({
+                documentId,
+                status: "published",
+              });
+
+            return Boolean(published);
+          } catch {
+            return false;
+          }
+        };
+
         // 1. Fetch current article with tags
         const currentArticle = (await strapi
           .documents("api::article.article")
@@ -21,6 +36,12 @@ export default factories.createCoreService(
           return;
         }
 
+        // Important: when a published article is edited, Strapi often returns the draft
+        // version by default. In that case `currentArticle.publishedAt` is null even
+        // though a published version exists. We want relatedArticles to reflect on the
+        // published version too, so we republish whenever a published version exists.
+        const shouldRepublish = await hasPublishedVersion(articleId);
+
         if (!currentArticle.tags || currentArticle.tags.length === 0) {
           // If no tags, clear related articles if not already empty
           if (
@@ -28,11 +49,12 @@ export default factories.createCoreService(
             currentArticle.relatedArticles.length > 0
           ) {
             await strapi.documents("api::article.article").update({
+              emitEvent: false,
               documentId: articleId,
               data: { relatedArticles: [] },
             });
             // Publish the update if article is already published
-            if (currentArticle.publishedAt) {
+            if (shouldRepublish) {
               await strapi.documents("api::article.article").publish({
                 documentId: articleId,
                 // Mark this as an internal publish so the lifecycle
@@ -139,7 +161,7 @@ export default factories.createCoreService(
             },
           });
           // 8. Publish the update if article is already published
-          if (currentArticle.publishedAt) {
+          if (shouldRepublish) {
             await strapi.documents("api::article.article").publish({
               documentId: articleId,
               // Mark this as an internal publish so the lifecycle
