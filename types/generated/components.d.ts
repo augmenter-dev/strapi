@@ -19,11 +19,12 @@ export interface SharedContactListForm extends Struct.ComponentSchema {
     displayName: 'Contact list form';
   };
   attributes: {
-    description: Schema.Attribute.RichText;
+    description: Schema.Attribute.RichText & Schema.Attribute.Required;
     html_anchor: Schema.Attribute.String;
+    source: Schema.Attribute.String & Schema.Attribute.Required;
     submit_label: Schema.Attribute.String;
     success_message: Schema.Attribute.RichText;
-    title: Schema.Attribute.String;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
