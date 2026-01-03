@@ -2,6 +2,7 @@
 const bootstrap = require("./bootstrap");
 
 const triggerGithubPublish = require("./utils/github-dispatch");
+const sendSlackNotification = require("./utils/slack-notification");
 
 // Utility : vérifier que l'UID correspond à un content-type de votre API
 const isApiContentType = (uid) =>
@@ -11,6 +12,8 @@ const isConcernedContentType = (uid) =>
   uid === "api::article.article" ||
   uid === "api::video.video" ||
   uid === "api::pointer.pointer";
+
+const isContactContentType = (uid) => uid === "api::contact.contact";
 
 module.exports = {
   async bootstrap({ strapi }) {
@@ -73,6 +76,13 @@ module.exports = {
         const { result, model } = event;
         const uid = model?.uid;
         if (!isApiContentType(uid)) {
+          return;
+        }
+
+        // Handle contact notifications
+        if (isContactContentType(uid)) {
+          // Fire and forget - don't block the response
+          sendSlackNotification(result);
           return;
         }
 
