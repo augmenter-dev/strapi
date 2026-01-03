@@ -22,6 +22,95 @@
     },
     "source": {
       "type": "string"
+    },
+    "sponsorshipInquiry": {
+      "type": "boolean",
+      "default": false
+    },
+    "companyName": {
+      "type": "string"
+    },
+    "companyWebsite": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "targetAudienceSeniorSoftwareEngineers": {
+      "type": "boolean",
+      "default": false
+    },
+    "targetAudienceStaffPrincipalEngineers": {
+      "type": "boolean",
+      "default": false
+    },
+    "targetAudienceEngineeringManagers": {
+      "type": "boolean",
+      "default": false
+    },
+    "targetAudienceCTOsTechLeaders": {
+      "type": "boolean",
+      "default": false
+    },
+    "targetAudienceAIPlatformTeams": {
+      "type": "boolean",
+      "default": false
+    },
+    "sponsorshipTypeBrandVisibility": {
+      "type": "boolean",
+      "default": false
+    },
+    "sponsorshipTypeSpeakingOrTechnicalContent": {
+      "type": "boolean",
+      "default": false
+    },
+    "sponsorshipTypeWorkshopOrDemo": {
+      "type": "boolean",
+      "default": false
+    },
+    "sponsorshipTypeCommunityPartnership": {
+      "type": "boolean",
+      "default": false
+    },
+    "sponsorshipTypeNotSureYet": {
+      "type": "boolean",
+      "default": false
+    },
+    "primaryGoalBrandVisibility": {
+      "type": "boolean",
+      "default": false
+    },
+    "primaryGoalHiringAndEmployerBranding": {
+      "type": "boolean",
+      "default": false
+    },
+    "primaryGoalProductAwareness": {
+      "type": "boolean",
+      "default": false
+    },
+    "primaryGoalGeneratingQualifiedLeads": {
+      "type": "boolean",
+      "default": false
+    },
+    "primaryGoalPositioningAsThoughtLeader": {
+      "type": "boolean",
+      "default": false
+    },
+    "primaryGoalSupportingDeveloperCommunity": {
+      "type": "boolean",
+      "default": false
+    },
+    "primaryGoalExploringPartnerships": {
+      "type": "boolean",
+      "default": false
+    },
+    "budgetRange": {
+      "type": "enumeration",
+      "enum": ["up-to-2500", "from-2500-to-5000", "from-5000-to-10000", "above-10000"],
+      "default": null
+    },
+    "additionalInfo": {
+      "type": "text"
     }
   }
 }

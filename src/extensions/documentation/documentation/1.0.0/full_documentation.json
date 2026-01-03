@@ -14,7 +14,7 @@
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
     "termsOfService": "YOUR_TERMS_OF_SERVICE_URL",
-    "x-generation-date": "2025-12-22T15:58:25.937Z"
+    "x-generation-date": "2026-01-03T10:22:22.990Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -7769,6 +7769,81 @@
               "source": {
                 "type": "string"
               },
+              "sponsorshipInquiry": {
+                "type": "boolean"
+              },
+              "companyName": {
+                "type": "string"
+              },
+              "companyWebsite": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "targetAudienceSeniorSoftwareEngineers": {
+                "type": "boolean"
+              },
+              "targetAudienceStaffPrincipalEngineers": {
+                "type": "boolean"
+              },
+              "targetAudienceEngineeringManagers": {
+                "type": "boolean"
+              },
+              "targetAudienceCTOsTechLeaders": {
+                "type": "boolean"
+              },
+              "targetAudienceAIPlatformTeams": {
+                "type": "boolean"
+              },
+              "sponsorshipTypeBrandVisibility": {
+                "type": "boolean"
+              },
+              "sponsorshipTypeSpeakingOrTechnicalContent": {
+                "type": "boolean"
+              },
+              "sponsorshipTypeWorkshopOrDemo": {
+                "type": "boolean"
+              },
+              "sponsorshipTypeCommunityPartnership": {
+                "type": "boolean"
+              },
+              "sponsorshipTypeNotSureYet": {
+                "type": "boolean"
+              },
+              "primaryGoalBrandVisibility": {
+                "type": "boolean"
+              },
+              "primaryGoalHiringAndEmployerBranding": {
+                "type": "boolean"
+              },
+              "primaryGoalProductAwareness": {
+                "type": "boolean"
+              },
+              "primaryGoalGeneratingQualifiedLeads": {
+                "type": "boolean"
+              },
+              "primaryGoalPositioningAsThoughtLeader": {
+                "type": "boolean"
+              },
+              "primaryGoalSupportingDeveloperCommunity": {
+                "type": "boolean"
+              },
+              "primaryGoalExploringPartnerships": {
+                "type": "boolean"
+              },
+              "budgetRange": {
+                "type": "string",
+                "enum": [
+                  "up-to-2500",
+                  "from-2500-to-5000",
+                  "from-5000-to-10000",
+                  "above-10000"
+                ]
+              },
+              "additionalInfo": {
+                "type": "string"
+              },
               "locale": {
                 "type": "string"
               },
@@ -7845,6 +7920,81 @@
             "format": "email"
           },
           "source": {
+            "type": "string"
+          },
+          "sponsorshipInquiry": {
+            "type": "boolean"
+          },
+          "companyName": {
+            "type": "string"
+          },
+          "companyWebsite": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "targetAudienceSeniorSoftwareEngineers": {
+            "type": "boolean"
+          },
+          "targetAudienceStaffPrincipalEngineers": {
+            "type": "boolean"
+          },
+          "targetAudienceEngineeringManagers": {
+            "type": "boolean"
+          },
+          "targetAudienceCTOsTechLeaders": {
+            "type": "boolean"
+          },
+          "targetAudienceAIPlatformTeams": {
+            "type": "boolean"
+          },
+          "sponsorshipTypeBrandVisibility": {
+            "type": "boolean"
+          },
+          "sponsorshipTypeSpeakingOrTechnicalContent": {
+            "type": "boolean"
+          },
+          "sponsorshipTypeWorkshopOrDemo": {
+            "type": "boolean"
+          },
+          "sponsorshipTypeCommunityPartnership": {
+            "type": "boolean"
+          },
+          "sponsorshipTypeNotSureYet": {
+            "type": "boolean"
+          },
+          "primaryGoalBrandVisibility": {
+            "type": "boolean"
+          },
+          "primaryGoalHiringAndEmployerBranding": {
+            "type": "boolean"
+          },
+          "primaryGoalProductAwareness": {
+            "type": "boolean"
+          },
+          "primaryGoalGeneratingQualifiedLeads": {
+            "type": "boolean"
+          },
+          "primaryGoalPositioningAsThoughtLeader": {
+            "type": "boolean"
+          },
+          "primaryGoalSupportingDeveloperCommunity": {
+            "type": "boolean"
+          },
+          "primaryGoalExploringPartnerships": {
+            "type": "boolean"
+          },
+          "budgetRange": {
+            "type": "string",
+            "enum": [
+              "up-to-2500",
+              "from-2500-to-5000",
+              "from-5000-to-10000",
+              "above-10000"
+            ]
+          },
+          "additionalInfo": {
             "type": "string"
           },
           "createdAt": {
@@ -8158,6 +8308,81 @@
                   "format": "email"
                 },
                 "source": {
+                  "type": "string"
+                },
+                "sponsorshipInquiry": {
+                  "type": "boolean"
+                },
+                "companyName": {
+                  "type": "string"
+                },
+                "companyWebsite": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "targetAudienceSeniorSoftwareEngineers": {
+                  "type": "boolean"
+                },
+                "targetAudienceStaffPrincipalEngineers": {
+                  "type": "boolean"
+                },
+                "targetAudienceEngineeringManagers": {
+                  "type": "boolean"
+                },
+                "targetAudienceCTOsTechLeaders": {
+                  "type": "boolean"
+                },
+                "targetAudienceAIPlatformTeams": {
+                  "type": "boolean"
+                },
+                "sponsorshipTypeBrandVisibility": {
+                  "type": "boolean"
+                },
+                "sponsorshipTypeSpeakingOrTechnicalContent": {
+                  "type": "boolean"
+                },
+                "sponsorshipTypeWorkshopOrDemo": {
+                  "type": "boolean"
+                },
+                "sponsorshipTypeCommunityPartnership": {
+                  "type": "boolean"
+                },
+                "sponsorshipTypeNotSureYet": {
+                  "type": "boolean"
+                },
+                "primaryGoalBrandVisibility": {
+                  "type": "boolean"
+                },
+                "primaryGoalHiringAndEmployerBranding": {
+                  "type": "boolean"
+                },
+                "primaryGoalProductAwareness": {
+                  "type": "boolean"
+                },
+                "primaryGoalGeneratingQualifiedLeads": {
+                  "type": "boolean"
+                },
+                "primaryGoalPositioningAsThoughtLeader": {
+                  "type": "boolean"
+                },
+                "primaryGoalSupportingDeveloperCommunity": {
+                  "type": "boolean"
+                },
+                "primaryGoalExploringPartnerships": {
+                  "type": "boolean"
+                },
+                "budgetRange": {
+                  "type": "string",
+                  "enum": [
+                    "up-to-2500",
+                    "from-2500-to-5000",
+                    "from-5000-to-10000",
+                    "above-10000"
+                  ]
+                },
+                "additionalInfo": {
                   "type": "string"
                 },
                 "createdAt": {

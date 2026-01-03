@@ -552,6 +552,12 @@ export interface ApiContactContact extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    additionalInfo: Schema.Attribute.Text;
+    budgetRange: Schema.Attribute.Enumeration<
+      ['up-to-2500', 'from-2500-to-5000', 'from-5000-to-10000', 'above-10000']
+    >;
+    companyName: Schema.Attribute.String;
+    companyWebsite: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -564,8 +570,45 @@ export interface ApiContactContact extends Struct.CollectionTypeSchema {
       'api::contact.contact'
     > &
       Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    primaryGoalBrandVisibility: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    primaryGoalExploringPartnerships: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    primaryGoalGeneratingQualifiedLeads: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    primaryGoalHiringAndEmployerBranding: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    primaryGoalPositioningAsThoughtLeader: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    primaryGoalProductAwareness: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    primaryGoalSupportingDeveloperCommunity: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
     publishedAt: Schema.Attribute.DateTime;
     source: Schema.Attribute.String;
+    sponsorshipInquiry: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    sponsorshipTypeBrandVisibility: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    sponsorshipTypeCommunityPartnership: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    sponsorshipTypeNotSureYet: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    sponsorshipTypeSpeakingOrTechnicalContent: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    sponsorshipTypeWorkshopOrDemo: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    targetAudienceAIPlatformTeams: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    targetAudienceCTOsTechLeaders: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    targetAudienceEngineeringManagers: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    targetAudienceSeniorSoftwareEngineers: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    targetAudienceStaffPrincipalEngineers: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
