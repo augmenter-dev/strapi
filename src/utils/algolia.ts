@@ -82,7 +82,7 @@ const transformVideo = (data: any) => {
     return data;
   }
 
-  const shortDescription =extractExcerptFromContent(data.description || "");
+  const shortDescription = extractExcerptFromContent(data.description || "");
   
 
   const tags =
