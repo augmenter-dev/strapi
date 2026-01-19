@@ -46,6 +46,14 @@ export default ({ env }: { env: any }) => ({
             tags: true,
           },
         },
+        {
+          name: "api::video.video",
+          index: "videos",
+          populate: {
+            thumbnail: true,
+            tags: true,
+          },
+        },
       ],
       transformerCallback: algoliaTransformer,
     },
