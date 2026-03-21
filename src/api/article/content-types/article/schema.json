@@ -67,6 +67,14 @@
     "metadata": {
       "type": "text"
     },
+    "referencedArticles": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::article.article"
+    },
+    "referencedArticlesMeta": {
+      "type": "json"
+    },
     "publicationDate": {
       "type": "datetime"
     },
