@@ -1,5 +1,6 @@
 "use strict";
 const bootstrap = require("./bootstrap");
+const { algoliasearch } = require("algoliasearch");
 
 const triggerGithubPublish = require("./utils/github-dispatch");
 const sendSlackNotification = require("./utils/slack-notification");
@@ -15,8 +16,65 @@ const isConcernedContentType = (uid) =>
 
 const isContactContentType = (uid) => uid === "api::contact.contact";
 
+const FACETING_ATTRIBUTES = [
+  "searchable(tags.slug)",
+  "searchable(tags.name)",
+  "filterOnly(type)",
+];
+
+const normalizeAttributes = (attributes = []) =>
+  Array.from(new Set(attributes)).sort();
+
+async function ensureAlgoliaFaceting(strapi) {
+  try {
+    const {
+      applicationId,
+      apiKey,
+      contentTypes = [],
+      indexPrefix = `${strapi.config.environment}_`,
+    } = strapi.config.get("plugin::strapi-algolia") || {};
+
+    if (!applicationId || !apiKey || !Array.isArray(contentTypes)) {
+      return;
+    }
+
+    const client = algoliasearch(applicationId, apiKey);
+
+    for (const contentType of contentTypes) {
+      const indexName = `${indexPrefix}${contentType.index ?? contentType.name}`;
+      const settings = await client.getSettings({ indexName });
+      const currentAttributes = settings.attributesForFaceting || [];
+      const mergedAttributes = normalizeAttributes([
+        ...currentAttributes,
+        ...FACETING_ATTRIBUTES,
+      ]);
+
+      const isAlreadyConfigured =
+        JSON.stringify(normalizeAttributes(currentAttributes)) ===
+        JSON.stringify(mergedAttributes);
+
+      if (isAlreadyConfigured) {
+        continue;
+      }
+
+      const result = await client.setSettings({
+        indexName,
+        indexSettings: {
+          attributesForFaceting: mergedAttributes,
+        },
+      });
+      await client.waitForTask({ indexName, taskID: result.taskID });
+      strapi.log.info(`[algolia] Faceting configured for ${indexName}`);
+    }
+  } catch (error) {
+    strapi.log.error(`[algolia] Unable to configure faceting: ${error.message}`);
+  }
+}
+
 module.exports = {
   async bootstrap({ strapi }) {
+    await ensureAlgoliaFaceting(strapi);
+
     strapi.db.lifecycles.subscribe({
       // `models: []` => all content-types
       async beforeUpdate(event) {
