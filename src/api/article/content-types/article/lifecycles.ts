@@ -26,9 +26,8 @@ export default {
     const { result } = event;
     if (result.publishedAt) {
       await updateTagsForArticle(result.id);
-      // Trigger related articles update (for self + neighbors)
-      // We explicitly allow propagation here as this is the primary update
-      await handleRelatedArticlesUpdate(result.documentId, true);
+      // Trigger related articles update for current article only.
+      await handleRelatedArticlesUpdate(result.documentId);
     }
   },
 
@@ -50,74 +49,19 @@ export default {
 
     if (result.publishedAt) {
       await updateTagsForArticle(result.id);
-      // Trigger related articles update (for self + neighbors)
-      // We explicitly allow propagation here as this is the primary update
-      await handleRelatedArticlesUpdate(result.documentId, true);
+      // Trigger related articles update for current article only.
+      await handleRelatedArticlesUpdate(result.documentId);
     }
   },
 };
 
-async function handleRelatedArticlesUpdate(
-  articleId: string,
-  shouldPropagate = true
-) {
+async function handleRelatedArticlesUpdate(articleId: string) {
   try {
     const service = strapi.service("api::article.related-articles");
     if (!service) return;
 
-    // 1. Update the current article
+    // Update only the current article.
     await service.updateRelatedArticles(articleId);
-
-    // If propagation is disabled, stop here.
-    // This prevents cascading updates when we are already processing a neighbor.
-    if (!shouldPropagate) {
-      return;
-    }
-
-    // 2. Fan-out: Update 5 most recent articles that share tags
-    // Get current article tags first
-    const currentArticle = await strapi
-      .documents("api::article.article")
-      .findOne({
-        documentId: articleId,
-        populate: ["tags"],
-      });
-
-    if (
-      !currentArticle ||
-      !currentArticle.tags ||
-      currentArticle.tags.length === 0
-    ) {
-      return;
-    }
-
-    const currentTagSlugs = currentArticle.tags.map((t) => t.slug);
-
-    // Find recent neighbors
-    const neighbors = await strapi.documents("api::article.article").findMany({
-      status: "published",
-      filters: {
-        tags: {
-          slug: {
-            $in: currentTagSlugs,
-          },
-        },
-        documentId: {
-          $ne: articleId,
-        },
-      },
-      sort: "publishedAt:desc",
-      limit: 5,
-    });
-
-    // Update them
-    // Use Promise.allSettled to prevent one failure from stopping others
-    // Pass shouldPropagate: false to prevent infinite cascade
-    await Promise.allSettled(
-      neighbors.map((article) =>
-        handleRelatedArticlesUpdate(article.documentId, false)
-      )
-    );
   } catch (error) {
     console.error(
       `Error in handleRelatedArticlesUpdate for ${articleId}:`,
