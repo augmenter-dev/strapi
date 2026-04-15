@@ -13,10 +13,10 @@
     "strapi": "strapi"
   },
   "dependencies": {
-    "@strapi/plugin-cloud": "5.33.3",
-    "@strapi/plugin-documentation": "^5.33.3",
-    "@strapi/plugin-users-permissions": "5.33.3",
-    "@strapi/strapi": "5.33.3",
+    "@strapi/plugin-cloud": "5.42.1",
+    "@strapi/plugin-documentation": "5.42.1",
+    "@strapi/plugin-users-permissions": "5.42.1",
+    "@strapi/strapi": "5.42.1",
     "better-sqlite3": "11.3.0",
     "fs-extra": "^10.0.0",
     "mime-types": "^2.1.27",
