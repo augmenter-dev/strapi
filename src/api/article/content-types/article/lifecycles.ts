@@ -26,49 +26,17 @@ export default {
     const { result } = event;
     if (result.publishedAt) {
       await updateTagsForArticle(result.id);
-      // Trigger related articles update for current article only.
-      await handleRelatedArticlesUpdate(result.documentId);
     }
   },
 
   async afterUpdate(event) {
-    const { result, params } = event;
-
-    // Prevent infinite loops for internal relatedArticles updates.
-    // We rely on an explicit context flag set by the related-articles service,
-    // and keep the data-key check as an extra safeguard / backwards compatibility.
-    const context = (params && (params as any).context) || {};
-    if (context.skipRelatedLifecycle === true) {
-      return;
-    }
-
-    const dataKeys = Object.keys(params?.data || {});
-    if (dataKeys.length === 1 && dataKeys.includes("relatedArticles")) {
-      return;
-    }
+    const { result } = event;
 
     if (result.publishedAt) {
       await updateTagsForArticle(result.id);
-      // Trigger related articles update for current article only.
-      await handleRelatedArticlesUpdate(result.documentId);
     }
   },
 };
-
-async function handleRelatedArticlesUpdate(articleId: string) {
-  try {
-    const service = strapi.service("api::article.related-articles");
-    if (!service) return;
-
-    // Update only the current article.
-    await service.updateRelatedArticles(articleId);
-  } catch (error) {
-    console.error(
-      `Error in handleRelatedArticlesUpdate for ${articleId}:`,
-      error
-    );
-  }
-}
 
 async function updateTagsForArticle(articleId: number | string) {
   try {
